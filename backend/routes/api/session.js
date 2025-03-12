@@ -19,17 +19,6 @@ const validateLogin = [
     .withMessage('Please provide a password.'),
   handleValidationErrors
 ];
-
-// Log in
-router.post(
-  '/',
-  validateLogin,
-  async (req, res, next) => {
-    // ... existing login route handler
-  }
-);
-
-
 // Log in
 router.post('/', async (req, res, next) => {
   const { credential, password } = req.body;
