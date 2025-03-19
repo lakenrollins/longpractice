@@ -6,8 +6,7 @@ const Sequelize = require('sequelize');
 const process = require('process');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../../config/database.js')[env];
-const config = require('../config/database'); // Ensure path is correct
+const config = require(__dirname + '/../config/config.json')[env];
 const db = {};
 
 let sequelize;
@@ -40,29 +39,5 @@ Object.keys(db).forEach(modelName => {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
-
-const { Model, DataTypes } = require('sequelize');
-
-module.exports = (sequelize) => {
-  class Spot extends Model {
-    static associate(models) {
-      // Define associations here
-    }
-  }
-
-  Spot.init(
-    {
-      name: DataTypes.STRING,
-      location: DataTypes.STRING,
-    },
-    {
-      sequelize,
-      modelName: 'Spot',
-    }
-  );
-
-  return Spot;
-};
-
 
 module.exports = db;

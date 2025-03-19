@@ -1,13 +1,34 @@
 'use strict';
 
-const { Model, Validator } = require('sequelize');
+const { Model, Validator, User } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
       // define association here
+      // Define associations
+  User.associate = (models) => {
+    User.hasMany(models.Spot, {
+      foreignKey: 'ownerId',
+      onDelete: 'CASCADE', // Cascade delete when a User is deleted
+    });
+
+    User.hasMany(models.Review, {
+      foreignKey: 'userId',
+      onDelete: 'CASCADE', // Cascade delete when a User is deleted
+    });
+
+    User.hasMany(models.Booking, {
+      foreignKey: 'userId',
+      onDelete: 'CASCADE', // Cascade delete when a User is deleted
+    });
+  };
+
+  return User;
+};
     }
   }
+
 
   User.init(
     {
@@ -60,5 +81,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
   return User;
-};
 
+
+module.exports = User;
